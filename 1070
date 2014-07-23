@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+  
+using namespace std;
+
+ 
+class Mooncake 
+{
+public:
+	float storage;
+
+	float price;
+  
+ 
+	Mooncake ()
+	{
+	} 
+	Mooncake (float Storage, float Price):storage (Storage), price (Price)
+  	{
+  	} 
+ 
+	float money (float size) 
+  	{
+		return price / storage * size;
+  	}
+  
+ 
+	float money () 
+	{    
+		return price;
+	}
+  
+ 
+	bool operator< (const Mooncake & another) const 
+	{
+    		return price / storage > another.price / another.storage;
+	}
+ 
+};
+
+ 
+int main () 
+{
+	int nmooncake;
+ 	float demand;
+	vector < Mooncake > mooncakes;
+  
+	scanf ("%d %f", &nmooncake, &demand);
+  
+ 
+	for (int i = 0; i < nmooncake; i++)    
+    	{
+		Mooncake m;
+     
+		scanf ("%f", &m.storage);
+   
+		mooncakes.push_back (m);
+  	} 
+ 
+	for (int i = 0; i < nmooncake; i++)
+    	{
+		scanf ("%f", &mooncakes[i].price);
+    	} 
+ 	sort(mooncakes.begin (), mooncakes.end ());
+  
+	float money = 0.f;
+  
+	vector < Mooncake >::iterator iter = mooncakes.begin ();
+  
+	while (demand > 0.f && iter != mooncakes.end ())    
+    	{
+      		if (demand > iter->storage)
+		{
+			demand -= iter->storage;
+			money += iter->money ();
+		}
+      		else
+		{
+			money += iter->money (demand);
+			demand = 0.f;
+		}
+      
+		iter++;
+	}
+	printf ("%.2f", money);
+	return 0;
+
+}
