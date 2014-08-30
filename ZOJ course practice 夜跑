@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+int main(){
+	int t, n, m, v, a, b, c;
+	cin >> t;
+	while (t--){
+		cin >> n >> m >> v;
+		int s1 = 0, s2;
+		while (m--){
+			cin >> a >> b >> c;
+			s1 += (b - a)*c;
+		}
+		s2 = v*n;
+		cout << (s1 + s2) / 400 << endl;
+	}
+	return 0;
+}
