@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <algorithm>
+#include <math.h>
+using namespace std;
+double hero[6];
+double hero2[6];
+int main()
+{
+    int t, n, l, k, blood;
+    while(scanf("%d", &t) != EOF)
+    {
+        while(t--)
+        {
+            int count = 0;
+            scanf("%d%d%d", &n, &l, &k);
+            for(int i = 0; i < n; i++)
+            {
+                scanf("%lf", &hero[i]);
+                hero[i] = ceil(hero[i]/300);
+            }
+            sort(hero, hero+n);
+            if(k == 1)
+            {
+                if(l < 6)
+                    blood = 0;
+                else if(l >= 6 && l < 11)
+                    blood = 5;
+                else if(l >=11 && l < 16)
+                    blood = 8;
+                else if(l >= 16)
+                    blood = 12;
+               for(int i = 0; i < n; i++)
+               {
+                   if(blood >= hero[i])
+                   {
+                     count++;
+                     blood -= hero[i];
+                   }
+                   else
+                    break;
+               }
+            }
+               else if(k == 0)
+               {
+                   if(l < 6)
+                        blood = 0;
+                   else if(l >= 6 && l < 11)
+                        blood = 4;
+                   else if(l >= 11 && l < 16)
+                        blood = 7;
+                   else if(l >= 16)
+                        blood = 10;
+                   int index = 0;
+                   for(int i = 0; i < n; i++)
+                   {
+                       if(hero[i] <= 4)
+                            hero2[index++] = hero[i];
+                   }
+                   for(int i = 0; i < index; i++)
+                   {
+                       if(blood >= hero2[i])
+                       {
+                           count++;
+                           blood -= hero2[i];
+                       }
+                       else
+                        break;
+                   }
+               }
+               switch(count)
+               {
+                    case 0: printf("none\n");
+                        break;
+                    case 1: printf("first blood\n");
+                        break;
+                    case 2: printf("double kill\n");
+                        break;
+                    case 3: printf("triple kill\n");
+                        break;
+                    case 4: printf("ultra kill\n");
+                        break;
+                    case 5: printf("rampage\n");
+                        break;
+                    default:
+                        break;
+               }
+            }
+    }
+    return 0;
+}
